@@ -1,6 +1,6 @@
 from medicSearch.models import *
 
-class Address(models.model):
+class Address(models.Model):
     neighborhood = models.ForeignKey(Neighborhood, null=True, related_name='neighborhood', on_delete=models.SET_NULL)
     name = models.CharField(null=False, max_length=100)
     address = models.CharField(null=False, max_length=255)
