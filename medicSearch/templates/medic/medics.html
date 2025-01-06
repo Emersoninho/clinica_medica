@@ -25,25 +25,23 @@
             {{medic.addresses.first.address | default:"Nenhum
             endereço." | slice:":15"}}...
             </div>
-            <!-- Até aqui -->
-            <a href={% url 'profile' medic.user.id %} class="btn btnprimary btn-card">Ver médico</a>
-            {% if user.is_authenticated %}
-            <button type="submit" class="btn btn-danger btn-card"><i
-            class="fa fa-heart"></i> Favoritos</a>
-            {% endif %}
-            </div>
-            <div class="row">
-                <nav aria-label="Page navigation" class="navigation">
-                <ul class="pagination">
-                {% if medics.has_previous %}
-                <!-- Perceba que usamos a variável parameters sempre
-                para manter os parâmetros da url mesmo quando trocamos entre uma número de
-                paginação e outro -->
-                <li class="page-item"><a class="page-link" href="?
-                page=1{{ parameters }}">&laquo; Primeiro</a></li>
-                <li class="page-item"><a class="page-link" href="?
-                page={{ medics.previous_page_number }}{{ parameters }}">Anterior</a></li>
-                {% endif %}
+            <a href="{% url 'profile' medic.user.id %}" class="btn btn-primary btncard">Ver médico</a>
+<!-- Altere o botão favoritos para o código a seguir. -->
+{% if user.is_authenticated %}
+<form method="POST" action="/medic/favorite">
+{% csrf_token %}<input type="hidden" value="{{medic.user.id}}" name="id">
+<input type="hidden" value="{{request.GET.page}}" name="page">
+<input type="hidden" value="{{request.GET.name}}" name="name">
+<input type="hidden" value="{{request.GET.speciality}}"
+name="speciality">
+<input type="hidden" value="{{request.GET.neighborhood}}"
+name="neighborhood">
+<input type="hidden" value="{{request.GET.city}}" name="city">
+<input type="hidden" value="{{request.GET.state}}" name="state">
+<button type="submit" class="btn btn-danger btn-card"><i class="fa faheart"></i> Favoritos</button>
+</form>
+{% endif %}
+            
                 <li class="page-item"><a class="page-link"
                 href="#">Página {{ medics.number }} de {{ medics.paginator.num_pages }}.
                 </a></li>
