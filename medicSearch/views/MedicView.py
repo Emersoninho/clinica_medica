@@ -29,7 +29,7 @@ def list_medics_view(request):
     if len(medics) > 0:
         paginator = Paginator(medics, 8)
         page = request.GET.get('page')  
-        medics = Paginator.get_page(page)
+        medics = paginator.get_page(page)
 
     get_copy = request.GET.copy()
     parameters = get_copy.pop('page', True) and get_copy.urlencode()          
