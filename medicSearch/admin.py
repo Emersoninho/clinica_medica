@@ -36,6 +36,12 @@ class ProfileAdmin(admin.ModelAdmin):
         return [i.name for i in obj.specialties.all()]
     def addressesList(self, obj):
         return [i.name for i in obj.addresses.all()]
+    
+    class Media:
+        css = {
+            'all': ('css/custom.css',)
+        }
+        js = ('js/custom.js',)
 
 admin.site.register(Profile, ProfileAdmin)
 admin.site.register(State)
